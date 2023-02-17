@@ -38,7 +38,7 @@ class Todo extends Component {
       <div className='TodoList'>
         <div className='list'>
           <ul>
-            {this.state.toDoList.map((listItem) => { return <TodoItem data={listItem} handleDelete={this.handleDelete}></TodoItem> })}
+            {this.state.toDoList.map((listItem) => { return <TodoItem key={listItem.id} data={listItem} handleDelete={this.handleDelete}></TodoItem> })}
           </ul>
         </div>
         <div className="form">
