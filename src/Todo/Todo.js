@@ -9,14 +9,24 @@ class Todo extends Component {
     this.state = { toDoList: [], formValue: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);  
-
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.setState(prevState => ({
-      toDoList: [...prevState.toDoList, { taskName: e.target.taskName.value }], formValue: ""
-    }))
+    if(e.target.taskName.value !== "") {
+      this.setState(prevState => ({
+        toDoList: [...prevState.toDoList, {id: Math.floor(Math.random() * 1000),
+ taskName: e.target.taskName.value }], formValue: ""
+      }))
+    }
+  }
+
+
+  handleDelete(id) {
+    this.setState({toDoList: this.state.toDoList.filter((task) => { 
+        return task.id !== id
+    })});
   }
 
   handleChange(e) {
@@ -28,7 +38,7 @@ class Todo extends Component {
       <div className='TodoList'>
         <div className='list'>
           <ul>
-            {this.state.toDoList.map((listItem) => { return <TodoItem data={listItem}></TodoItem> })}
+            {this.state.toDoList.map((listItem) => { return <TodoItem data={listItem} handleDelete={this.handleDelete}></TodoItem> })}
           </ul>
         </div>
         <div className="form">
